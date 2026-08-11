@@ -1,0 +1,9 @@
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 9.0.0
+
+dotnet tool install -g dotnet-aspnet-codegenerator --version 9.0.0
+
+dotnet-aspnet-codegenerator controller -name UsuariosController -m Usuario -dc AplicationDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+
+
+git config --global user.name "Tainara Santos"
+git config --global user.email "tainaravit.santos28@gmail.com"
