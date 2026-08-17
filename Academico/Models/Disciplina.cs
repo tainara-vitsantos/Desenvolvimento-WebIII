@@ -4,16 +4,13 @@
     {
         public int DisciplinaId { get; set; }
 
-        public string Nome { get; set; }
+        public string Nome { get; set; } = string.Empty;
 
         public int Semestre { get; set; }
 
-        //Mapeando o relacionemento com Curso
-
+        // Mapeando o relacionamento com Curso
         public int CursoId { get; set; }
 
-        public Curso Curso { get; set; }
-
-
+        public Curso Curso { get; set; } = null!;
     }
 }

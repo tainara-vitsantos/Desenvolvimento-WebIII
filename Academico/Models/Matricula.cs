@@ -6,16 +6,13 @@
 
         public DateTime DataMatricula { get; set; }
 
-        //Mapeando o relacionemento com Curso e Aluno n para n
-
+        // Mapeando o relacionamento com Curso e Aluno n para n
         public int CursoId { get; set; }
 
         public int AlunoId { get; set; }
 
-        public  Curso Curso { get; set; }
+        public Curso Curso { get; set; } = null!;
 
-        public Aluno Aluno { get; set; }
-
-
+        public Aluno Aluno { get; set; } = null!;
     }
 }

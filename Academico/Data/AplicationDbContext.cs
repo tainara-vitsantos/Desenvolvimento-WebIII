@@ -13,4 +13,8 @@ using Academico.Models;
         }
 
         public DbSet<Academico.Models.Usuario> Usuario { get; set; } = default!;
+
+public DbSet<Academico.Models.Matricula> Matricula { get; set; } = default!;
+
+public DbSet<Academico.Models.Disciplina> Disciplina { get; set; } = default!;
     }
