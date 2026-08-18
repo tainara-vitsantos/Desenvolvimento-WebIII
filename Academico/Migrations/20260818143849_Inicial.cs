@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -7,139 +6,126 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Academico.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterDatabase()
-                .Annotation("MySql:CharSet", "utf8mb4");
-
             migrationBuilder.CreateTable(
                 name: "Curso",
                 columns: table => new
                 {
                     CursoId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Vagas = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Curso", x => x.CursoId);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
-                name: "Usuarios",
+                name: "Usuario",
                 columns: table => new
                 {
                     UsuarioId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Senha = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Senha = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usuarios", x => x.UsuarioId);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                    table.PrimaryKey("PK_Usuario", x => x.UsuarioId);
+                });
 
             migrationBuilder.CreateTable(
-                name: "Disciplinas",
+                name: "Disciplina",
                 columns: table => new
                 {
                     DisciplinaId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Semestre = table.Column<int>(type: "int", nullable: false),
                     CursoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Disciplinas", x => x.DisciplinaId);
+                    table.PrimaryKey("PK_Disciplina", x => x.DisciplinaId);
                     table.ForeignKey(
-                        name: "FK_Disciplinas_Curso_CursoId",
+                        name: "FK_Disciplina_Curso_CursoId",
                         column: x => x.CursoId,
                         principalTable: "Curso",
                         principalColumn: "CursoId",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
-                name: "Alunos",
+                name: "Aluno",
                 columns: table => new
                 {
                     AlunoId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Ra = table.Column<int>(type: "int", nullable: false),
                     UsuarioId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Alunos", x => x.AlunoId);
+                    table.PrimaryKey("PK_Aluno", x => x.AlunoId);
                     table.ForeignKey(
-                        name: "FK_Alunos_Usuarios_UsuarioId",
+                        name: "FK_Aluno_Usuario_UsuarioId",
                         column: x => x.UsuarioId,
-                        principalTable: "Usuarios",
+                        principalTable: "Usuario",
                         principalColumn: "UsuarioId",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
-                name: "Matriculas",
+                name: "Matricula",
                 columns: table => new
                 {
                     MatriculaId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    DataMatricula = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DataMatricula = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CursoId = table.Column<int>(type: "int", nullable: false),
                     AlunoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Matriculas", x => x.MatriculaId);
+                    table.PrimaryKey("PK_Matricula", x => x.MatriculaId);
                     table.ForeignKey(
-                        name: "FK_Matriculas_Alunos_AlunoId",
+                        name: "FK_Matricula_Aluno_AlunoId",
                         column: x => x.AlunoId,
-                        principalTable: "Alunos",
+                        principalTable: "Aluno",
                         principalColumn: "AlunoId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Matriculas_Curso_CursoId",
+                        name: "FK_Matricula_Curso_CursoId",
                         column: x => x.CursoId,
                         principalTable: "Curso",
                         principalColumn: "CursoId",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Alunos_UsuarioId",
-                table: "Alunos",
+                name: "IX_Aluno_UsuarioId",
+                table: "Aluno",
                 column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Disciplinas_CursoId",
-                table: "Disciplinas",
+                name: "IX_Disciplina_CursoId",
+                table: "Disciplina",
                 column: "CursoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Matriculas_AlunoId",
-                table: "Matriculas",
+                name: "IX_Matricula_AlunoId",
+                table: "Matricula",
                 column: "AlunoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Matriculas_CursoId",
-                table: "Matriculas",
+                name: "IX_Matricula_CursoId",
+                table: "Matricula",
                 column: "CursoId");
         }
 
@@ -147,19 +133,19 @@ namespace Academico.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Disciplinas");
+                name: "Disciplina");
 
             migrationBuilder.DropTable(
-                name: "Matriculas");
+                name: "Matricula");
 
             migrationBuilder.DropTable(
-                name: "Alunos");
+                name: "Aluno");
 
             migrationBuilder.DropTable(
                 name: "Curso");
 
             migrationBuilder.DropTable(
-                name: "Usuarios");
+                name: "Usuario");
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+
+
 namespace Academico.Models
 {
     public class Aluno
@@ -8,6 +10,7 @@ namespace Academico.Models
         public int Ra { get; set; }
 
         // Mapeando o relacionamento entre aluno e Usuario
+        [Display(Name = "Usuário")]
         public int UsuarioId { get; set; }
 
         public Usuario Usuario { get; set; } = null!;
